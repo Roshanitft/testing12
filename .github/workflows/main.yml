@@ -46,10 +46,13 @@ jobs:
         id: count
       
       - name: view instances
-        run: |
-        
-          echo TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
-          echo TOTAL_INSTANCES: ${{ TOTAL_VCPU / 8 }}
+        env: 
+          TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
+           
+        run: | 
+           
+            echo TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
+            echo TOTAL_INSTANCES: ${{ TOTAL_VCPU / 8 }}
             
      
           
