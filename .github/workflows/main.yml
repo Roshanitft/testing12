@@ -51,14 +51,15 @@ jobs:
           number: 8
            
         run: | 
+            
+            echo ${TOTAL_VCPU}
             a=${TOTAL_VCPU%.*}
             b=8
-            echo $(( $a + $b ))
-            echo $(( $a / $b ))
-            echo ${TOTAL_VCPU}
-               echo TOTAL_INSTANCES: $(($TOTAL_VCPU/1)) 
-          #  echo ::set-env name=NEWNUM::$((TOTAL_VCPU+1.2))
-           # echo "New Number is $NEWNUM"
-             
+            echo "::set-output name=total_instance::$(( $a / $b ))"
+            id: count
+            echo $(( $total_instance * 0.7 ))
+            
+              
+         
      
           
