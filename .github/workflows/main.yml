@@ -63,7 +63,7 @@ jobs:
             echo $t
             
             
-            if [ $t -ge $c]
+            if [ $t -ge $c ]
             then
               run: aws service-quotas request-service-quota-increase --service-code ec2 --quota-code L-1216C47A --region ap-south-1 --desired-value 34
 
