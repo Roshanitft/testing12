@@ -61,7 +61,16 @@ jobs:
             d=0.7
             t=$(echo $c*$d | bc)
             echo $t
-            #echo $(( $c /* $d )) 
-         # d="$(( $a / $b )).0"
-#t=`expr $c * $d`     
-          
+            
+            
+            if [ $t -ge $c]
+            then
+              run: aws service-quotas request-service-quota-increase --service-code ec2 --quota-code L-1216C47A --region ap-south-1 --desired-value 34
+
+            else
+              echo "Not"
+            
+            
+            
+            
+           
