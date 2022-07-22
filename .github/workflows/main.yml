@@ -34,9 +34,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-south-1  # change as needed
           
-          
+#       - name:  instances
+#         run: |
+#             aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value'
+#             aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
+      
+      - name: Retrieve version
+        run: |
+          echo "::set-output name=total_vcpu::$(aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value')"
+        id: version
+      
       - name: view instances
         run: |
+            echo $total_vcpu
             aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId'           
             aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
             aws gamelift describe-ec2-instance-limits --region ap-south-1 --ec2-instance-type c5.2xlarge
