@@ -42,11 +42,11 @@ jobs:
       - name: Retrieve version
         run: |
           echo "::set-output name=total_vcpu::$(aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value')"
-        id: version
+        id: count
       
       - name: view instances
         run: |
-            tag_name: ${{ steps.version.outputs.total_vcpu}}
+            tag_name: ${{ steps.count.outputs.total_vcpu}}
             
             #aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId'           
             #aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
