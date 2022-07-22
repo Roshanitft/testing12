@@ -12,11 +12,11 @@ on:
         - prod
         required: true
         
-env:
-  total_vcpu:  aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value'
-  total_instance_limit: $total_vcpu/8
-  total_instance_runnng:  aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
-  request: $total_instance_running*.7
+# env:
+#   total_vcpu:  aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value'
+#   total_instance_limit: $total_vcpu/8
+#   total_instance_runnng:  aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
+#   request: $total_instance_running*.7
   
 jobs:
 
@@ -47,7 +47,7 @@ jobs:
       - name: view instances
         run: |
             TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu}}
-            TOTAL_INSTANCES: ${{ TOTAL_VCPU/8 }}
+            TOTAL_INSTANCES: $TOTAL_VCPU / 8
             
-            
-
+     
+          
