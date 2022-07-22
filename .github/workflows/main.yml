@@ -47,13 +47,13 @@ jobs:
       
       - name: view instances
         env: 
-          int TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
+          TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
           number: 8
            
         run: | 
            
             echo ${TOTAL_VCPU}
-               total= $(echo TOTAL_INSTANCES: $(($TOTAL_VCPU+1)) | bc)
+               total= $(echo TOTAL_INSTANCES: $(($TOTAL_VCPU+$1)) | bc)
           #  echo ::set-env name=NEWNUM::$((TOTAL_VCPU+1.2))
            # echo "New Number is $NEWNUM"
              
