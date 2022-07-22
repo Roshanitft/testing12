@@ -46,7 +46,7 @@ jobs:
       
       - name: view instances
         run: |
-            echo $total_vcpu
+            tag_name: ${{ steps.version.outputs.total_vcpu}}
             
             #aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId'           
             #aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
