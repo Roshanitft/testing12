@@ -55,10 +55,10 @@ jobs:
             echo ${TOTAL_VCPU}
             a=${TOTAL_VCPU%.*}
             b=8
-            echo $(( $a / $b ))
-            c=$(( $a / $b ))
-            d=0.7
-            echo $(( $c * $d ))
+            c= echo $(( $a / $b ))
+           # c=$(( $a / $b ))
+           # d=0.7
+           # echo $(( $c * $d ))
             
               
          
