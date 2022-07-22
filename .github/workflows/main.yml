@@ -51,8 +51,8 @@ jobs:
           number: 8
            
         run: | 
-            a=5
-            b=8
+            a=5.0
+            b=8.0
             echo $(( $a + $b ))
             echo $(( $a / $b ))
             echo ${TOTAL_VCPU}
