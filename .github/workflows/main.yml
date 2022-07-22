@@ -54,7 +54,7 @@ jobs:
            
             echo ${TOTAL_VCPU}
            
-            echo ::set-env name=NEWNUM::$((TOTAL_VCPU+1))
+            echo ::set-env name=NEWNUM::$((TOTAL_VCPU+1.2))
             echo "New Number is $NEWNUM"
             # echo TOTAL_INSTANCES: $(($TOTAL_VCPU+1))
      
