@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      Env:
+        type: choice
+        description: 'choose Environment' 
+        options: 
+        - dev
+        - stg
+        - prod
+        required: true
+        
+env:
+  total_vcpu:  aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value'
+  total_instance_limit: $total_vcpu/8
+  total_instance_runnng:  aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
+  request: $total_instance_running*.7
+  
+jobs:
+
+  dev-deploy:
+    runs-on: ubuntu-latest
+    if:  ${{ github.event.inputs.Env == 'dev' }}
+    steps:
+      - uses: actions/checkout@v2
+        
+        
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1  # change as needed
+          
+          
+      - name: view instances
+        run: |
+            aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId'           
+            aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
+            aws gamelift describe-ec2-instance-limits --region ap-south-1 --ec2-instance-type c5.2xlarge
+             aws gamelift describe-ec2-instance-limits --region ap-south-1 --ec2-instance-type c5.large
+
