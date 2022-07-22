@@ -47,7 +47,7 @@ jobs:
       
       - name: view instances
         env: 
-          TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
+          int TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu }}
           number: 8
            
         run: | 
