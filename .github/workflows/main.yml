@@ -39,17 +39,15 @@ jobs:
 #             aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value'
 #             aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
       
-      - name: Retrieve version
+      - name: Retrieve Total vcpu count
         run: |
           echo "::set-output name=total_vcpu::$(aws service-quotas get-service-quota --region ap-south-1 --service-code ec2 --quota-code L-1216C47A --query 'Quota.Value')"
         id: count
       
       - name: view instances
         run: |
-            tag_name: ${{ steps.count.outputs.total_vcpu}}
+            TOTAL_VCPU: ${{ steps.count.outputs.total_vcpu}}
+            TOTAL_INSTANCES: $TOTAL_VCPU/8
             
-            #aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId'           
-            #aws ec2 describe-instances --region ap-south-1 --output table --query 'Reservations[*].Instances[*].InstanceId' | grep i- | wc -l
-            #aws gamelift describe-ec2-instance-limits --region ap-south-1 --ec2-instance-type c5.2xlarge
-             #aws gamelift describe-ec2-instance-limits --region ap-south-1 --ec2-instance-type c5.large
+            
 
