@@ -59,7 +59,9 @@ jobs:
             echo $c
            
             d=0.7
-            echo $(( $c /* $d )) 
+            t=$(echo $c*$d | bc)
+            echo $t
+            #echo $(( $c /* $d )) 
          # d="$(( $a / $b )).0"
 #t=`expr $c * $d`     
           
