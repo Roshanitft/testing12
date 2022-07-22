@@ -53,7 +53,7 @@ jobs:
         run: | 
            
             echo ${TOTAL_VCPU}
-            echo TOTAL_INSTANCES= $(($TOTAL_VCPU//8))
+            echo TOTAL_INSTANCES= $(($TOTAL_VCPU/8.0))
             
      
           
